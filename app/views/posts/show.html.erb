@@ -1,0 +1,9 @@
+<%= @post.content %>
+<%= @token %>
+
+
+
+<%=form_for(@post) do |f| %>
+  <%= hidden_field_tag 'token' , @token %>
+  <%= link_to('支援する(3500円)',{:controller => "posts", :action => "pay"},:confirm => '3500円で支援しますか?')%>
+<% end %>

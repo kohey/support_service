@@ -1,0 +1,32 @@
+<ul class="media-list">
+  <% posts.each do |post| %>
+    <li class="media">
+      <div class="media-left">
+        <img class="media-object img-rounded" src="<%= gravatar_url(post.user, { size: 50 }) %>" alt="">
+      </div>
+      <div class="media-body">
+        <div>
+          <%= link_to post.user.name, user_path(post.user) %> <span class="text-muted">posted at <%= post.created_at %></span>
+        </div>
+
+        <div>
+          <p>投稿内容:<%= post.content %></p>
+        </div>
+        <div>
+          <p>必要金額:<%= post.amount %></p>
+        </div>
+
+        <%= form_for(post, method: 'post') do |f| %>
+          <script src="https://checkout.pay.jp/" class="payjp-button" data-key= 'pk_test_0383a1b8f91e8a6e3ea0e2a9'></script>
+        <% end %>
+
+        #削除ボタンの追加(要相談)#
+<!--        ユーザの確認をしてから削除する-->
+        <%if current_user == post.user %>
+          <%= link_to '削除する', post, method: :delete, data: {confirm: '本当に削除しますか?'}, class: "btn btn-danger btn-xs"%>
+        <%end %>
+
+      </div>
+    </li>
+  <% end %>
+</ul>
